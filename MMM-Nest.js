@@ -199,35 +199,38 @@ Module.register("MMM-Nest",{
 		} else {
 		 if (this.config.displayMode !== "protect" ) {
 		   //var theName = document.createElement("div");
+		   wrapper.className = "thermContainer";
+		   var circle = document.createElement("div");
 		   if (this.hvacMode[this.chosenNest] === 'heat-cool') {
-			wrapper.id = "circle";
-			wrapper.className = this.hvacState[this.chosenNest] + "HC";
-			wrapper.innerHTML = this.targetTempL[this.chosenNest] + " &bull; " + this.targetTempH[this.chosenNest];
+			circle.id = "circle";
+			circle.className = this.hvacState[this.chosenNest] + "HC";
+			circle.innerHTML = this.targetTempL[this.chosenNest] + " &bull; " + this.targetTempH[this.chosenNest];
 		   } else {
-			wrapper.id = "circle";
-			wrapper.className = this.hvacState[this.chosenNest];
-			wrapper.innerHTML = this.targetTemp[this.chosenNest];
+			circle.id = "circle";
+			circle.className = this.hvacState[this.chosenNest];
+			circle.innerHTML = this.targetTemp[this.chosenNest];
 		   }
 		   var theTemp = document.createElement("div");
 		   if (this.hvacState[this.chosenNest] === "cooling") {
 			theTemp.innerHTML = this.ambientTemp[this.chosenNest];
 			theTemp.className = "coolingText";
-			wrapper.appendChild(theTemp);
+			circle.appendChild(theTemp);
 		   } else if ( this.hvacState === "heating") {
 			theTemp.innerHTML = this.ambientTemp[this.chosenNest];
 			theTemp.className = "heatingText";
-			wrapper.appendChild(theTemp);
+			circle.appendChild(theTemp);
 		   } else if ( this.hvacMode !== 'heat-cool') {
 			if (parseInt(this.ambientTemp[this.chosenNest]) < parseInt(this.targetTemp[this.chosenNest])) {
 			   theTemp.innerHTML = this.ambientTemp[this.chosenNest];
 			   theTemp.className = "heatingText";
-			   wrapper.appendChild(theTemp);
+			   circle.appendChild(theTemp);
 		   	} else if (parseInt(this.ambientTemp[this.chosenNest]) > parseInt(this.targetTemp[this.chosenNest])) {
 		 	   theTemp.innerHTML = this.ambientTemp[this.chosenNest];
 			   theTemp.className = "coolingText";
-			   wrapper.appendChild(theTemp);
+			   circle.appendChild(theTemp);
 		   	}
 		   }
+		   wrapper.appendChild(circle);
 
 		   var theHumidity = document.createElement("div");
 		   theHumidity.innerHTML = this.humidity[this.chosenNest] + "%";
@@ -246,8 +249,9 @@ Module.register("MMM-Nest",{
 		   wrapper.appendChild(protectRing);
 
 		 } if (this.config.displayMode === "protect") {
-		   wrapper.id = "ring";
-		   wrapper.className = this.uiColor[this.chosenProt] + "Ring";
+		   var ring = document.createElement("div");
+		   ring.id = "ring";
+		   ring.className = this.uiColor[this.chosenProt] + "Ring";
 		   if (this.uiColor[this.chosenProt] !== "green") {
 			var batteryIcon = document.createElement("img");
 			var displayText = document.createElement("p");
@@ -255,23 +259,24 @@ Module.register("MMM-Nest",{
 
 			if(this.coState[this.chosenProt] == "emergency") {
 			   displayText.innerHTML = "CO";
-			   wrapper.appendChild(displayText);
+			   ring.appendChild(displayText);
 			} else if (this.smokeState[this.chosenProt] == "emergency") {
                            displayText.innerHTML = "Smoke";
-			   wrapper.appendChild(displayText);
+			   ring.appendChild(displayText);
                         } else if (this.coState[this.chosenProt] == "warning") {
                            displayText.innerHTML = "CO";
-			   wrapper.appendChild(displayText);
+			   ring.appendChild(displayText);
                         } else if (this.smokeState[this.chosenProt] == "warning") {
                            displayText.innerHTML = "Smoke";
-			   wrapper.appendChild(displayText);
+			   ring.appendChild(displayText);
                         } else if (this.batteryHealth[this.chosenProt] == "replace") {
                            batteryIcon.src = this.file("icons/battery-icon.png");
                            batteryIcon.className = "batteryIcon";
-                           wrapper.appendChild(batteryIcon);
+                           ring.appendChild(batteryIcon);
 			}
 		   }
 
+		   wrapper.appendChild(ring);
 		 }
 		}
 		
