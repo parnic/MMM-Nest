@@ -241,7 +241,7 @@ Module.register("MMM-Nest",{
 		   	var fan = document.createElement("img");
 		   	fan.src = this.file("icons/fan-icon.png");
 		   	fan.className = "fanIcon";
-		   	wrapper.appendChild(fan);
+		   	circle.appendChild(fan);
 		   }
 		 } if (this.config.displayMode === "both") {
 		   var protectRing = document.createElement("div");
